@@ -1,0 +1,25 @@
+frappe.pages['oci-partners'].on_page_load = function(wrapper) {
+	var page = frappe.ui.make_app_page({
+		parent: wrapper,
+		title: 'OCI Partners',
+		single_column: true
+	});
+
+	frappe.oci_partners.make(page);
+	frappe.oci_partners.run();
+	frappe.oci_partners.show_data();
+}
+
+frappe.oci_partners = {
+	start: 0,
+	make: function(page) {
+		me.page = page;
+                me.body = $('<div></div>').appendTo(me.page.main);
+                var data = "";
+                $(frappe.render_template('oci_partners', data)).appendTo(me.body);
+	},
+	run: function() {
+	},
+	show_data()
+
+}
