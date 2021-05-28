@@ -9,11 +9,12 @@
   "supplier",
   "username",
   "password",
+  "type",
   "url",
+  "sapref",
   "additionaldata",
   "validate",
-  "detail",
-  "goto"
+  "detail"
  ],
  "fields": [
   {
@@ -39,8 +40,7 @@
    "fieldname": "password",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Password",
-   "reqd": 1
+   "label": "Password"
   },
   {
    "allow_in_quick_entry": 1,
@@ -62,11 +62,6 @@
    "label": "Detail"
   },
   {
-   "fieldname": "goto",
-   "fieldtype": "Button",
-   "label": "GoTo"
-  },
-  {
    "fieldname": "additionaldata",
    "fieldtype": "Data",
    "label": "AdditionalData"
@@ -79,9 +74,21 @@
    "label": "Name",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "GET\nPOST",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sapref",
+   "fieldtype": "Data",
+   "label": "sapref"
   }
  ],
- "modified": "2021-05-15 22:05:40.480795",
+ "modified": "2021-05-28 22:33:20.123216",
  "modified_by": "Administrator",
  "module": "Open Catalog Interface",
  "name": "OCI Partners",

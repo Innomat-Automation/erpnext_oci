@@ -46,8 +46,23 @@ function show_table(data) {
     for(var i = 0; i < data.length ;i++){
 		console.log(data[i]);
 		output.push('<tr>');
-	    output.push('<td>' + data[i].Name + '</td>');
-	    output.push('<td><a href=' + data[i].Url + '?' + data[i].AdditionalData + '&Username=' + data[i].Username + '&Password=' + data[i].Password + '&HOOK_URL=http://192.168.80.31>Gehe zu Webshop</a></td>');
+	   	output.push('<td>' + data[i].Name + '</td>');
+		var passworddata = "";
+		var additional = "";
+		var sapref = "";
+		if(data[i].Password.length > 0)
+		{
+			passworddata = '<input type="hidden" name="Password" value="' + data[i].Password + '">';
+		}
+		if(data[i].AdditionalData != null)
+		{
+			additional = data[i].AdditionalData;
+		}
+		if(data[i].sapref != null)
+		{
+			sapref = '<input type="hidden" name="sapref" value="' + data[i].sapref + '>"';
+		}
+	   	output.push('<td><form action="' + data[i].Url + additional + '" method="' + data[i].Type + '"><input type="hidden" name="Username" value="' + data[i].Username + '">' + passworddata + sapref +'<input type="hidden" name="HOOK_URL" value="http://192.168.80.31"><input type="submit" value="Gehe zu Webshop"></form></td>');
 		output.push('</tr>');
 	}
   	
