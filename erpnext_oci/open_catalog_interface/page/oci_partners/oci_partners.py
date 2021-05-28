@@ -1,3 +1,6 @@
+import frappe
+from frappe import throw, _
+
 @frappe.whitelist()
 def get_partner_list():
 	try:
