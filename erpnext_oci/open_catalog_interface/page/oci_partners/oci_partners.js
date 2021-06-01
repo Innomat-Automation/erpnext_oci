@@ -56,13 +56,13 @@ function show_table(data) {
 		}
 		if(data[i].AdditionalData != null)
 		{
-			additional = data[i].AdditionalData;
+			additional = '<input type="hidden" name="Password" value="' + data[i].AdditionalData + '">';
 		}
 		if(data[i].sapref != null)
 		{
-			sapref = '<input type="hidden" name="sapref" value="' + data[i].sapref + '>"';
+			sapref = '<input type="hidden" name="sapref" value="' + data[i].sapref + '">';
 		}
-	   	output.push('<td><form action="' + data[i].Url + additional + '" method="' + data[i].Type + '"><input type="hidden" name="Username" value="' + data[i].Username + '">' + passworddata + sapref +'<input type="hidden" name="HOOK_URL" value="http://192.168.80.31"><input type="submit" value="Gehe zu Webshop"></form></td>');
+	   	output.push('<td><form action="' + data[i].Url + '" method="' + data[i].Type + '">' + additional  + '<input type="hidden" name="USERNAME" value="' + data[i].Username + '">' + passworddata + sapref +'<input type="hidden" name="HOOK_URL" value="http://192.168.80.31"><input type="submit" value="Gehe zu Webshop"></form></td>');
 		output.push('</tr>');
 	}
   	

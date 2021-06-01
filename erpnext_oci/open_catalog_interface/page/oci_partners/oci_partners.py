@@ -7,3 +7,5 @@ def get_partner_list():
 		return frappe.get_all("OCI Partners", fields = ["Name","Username","Password","Url","Type","sapref","AdditionalData"])
 	except:
 		return 'Error'
+
+

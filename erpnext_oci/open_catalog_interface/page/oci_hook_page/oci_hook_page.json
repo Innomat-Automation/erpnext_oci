@@ -1,0 +1,23 @@
+{
+ "content": null,
+ "creation": "2021-05-29 09:12:22.744149",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2021-05-29 09:12:50.680725",
+ "modified_by": "Administrator",
+ "module": "Open Catalog Interface",
+ "name": "oci-hook-page",
+ "owner": "Administrator",
+ "page_name": "OCI Hook Page",
+ "roles": [
+  {
+   "role": "Purchase User"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "OCI Hook Page"
+}

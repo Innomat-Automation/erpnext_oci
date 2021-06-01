@@ -1,2 +1,1 @@
-Erpnext Oci
 Open Catalog Interface
