@@ -1,0 +1,79 @@
+{
+ "creation": "2021-06-03 22:15:20.446783",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "returnfield",
+  "fieldtype",
+  "fieldname",
+  "default",
+  "pricelist",
+  "show_in_table"
+ ],
+ "fields": [
+  {
+   "columns": 3,
+   "fieldname": "returnfield",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "ReturnField",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "depends_on": "eval:doc.fieldtype == \"Item-Field\"",
+   "fieldname": "fieldname",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "FieldName"
+  },
+  {
+   "columns": 1,
+   "fieldname": "fieldtype",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "FieldType",
+   "options": "\nItem-Field\nItem-Price\nItem-UOM\nBasket-Quantity"
+  },
+  {
+   "depends_on": "eval:doc.fieldtype == \"Item-Price\"",
+   "fieldname": "pricelist",
+   "fieldtype": "Link",
+   "label": "PriceList",
+   "options": "Price List"
+  },
+  {
+   "default": "1",
+   "fieldname": "show_in_table",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Show in Table"
+  },
+  {
+   "columns": 2,
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "default",
+   "fieldtype": "Data",
+   "label": "Default"
+  }
+ ],
+ "istable": 1,
+ "modified": "2021-06-11 19:55:38.931126",
+ "modified_by": "Administrator",
+ "module": "Open Catalog Interface",
+ "name": "OCI Partner Fields",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

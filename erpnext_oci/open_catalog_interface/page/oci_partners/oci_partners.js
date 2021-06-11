@@ -49,23 +49,23 @@ function show_table(data) {
 	   	output.push('<td>' + data[i].Name + '</td>');
 		var passworddata = "";
 		var additional = "";
-		var sapref = "";
 		if(data[i].Password.length > 0)
 		{
 			passworddata = '<input type="hidden" name="Password" value="' + data[i].Password + '">';
 		}
 		if(data[i].AdditionalData != null)
 		{
-			additional = '<input type="hidden" name="Password" value="' + data[i].AdditionalData + '">';
+			adddata = data[i].AdditionalData.split(";");
+			for(e = 0; e < adddata.length;e++)
+			{
+				value = adddata[e].split("=");
+				if(value.length = 2) additional = additional + '<input type="hidden" name="' + value[0] + '" value="' + value[1] + '">';
+			}
 		}
-		if(data[i].sapref != null)
-		{
-			sapref = '<input type="hidden" name="sapref" value="' + data[i].sapref + '">';
-		}
-	   	output.push('<td><form action="' + data[i].Url + '" method="' + data[i].Type + '">' + additional  + '<input type="hidden" name="USERNAME" value="' + data[i].Username + '">' + passworddata + sapref +'<input type="hidden" name="HOOK_URL" value="http://192.168.80.31"><input type="submit" value="Gehe zu Webshop"></form></td>');
+	   	output.push('<td><form action="' + data[i].Url + '" method="' + data[i].Type + '" target="_blank">' + additional  + '<input type="hidden" name="USERNAME" value="' + data[i].Username + '">' + passworddata +'<input type="hidden" name="HOOK_URL" value="' + location.protocol + '//' + location.hostname + '/api/method/erpnext_oci.open_catalog_interface.utils.create_hock_page"><input type="hidden" name="~caller" value="' + data[i].Name + '"><input type="submit" value="Gehe zu Webshop"></form></td>');
 		output.push('</tr>');
 	}
   	
 	document.getElementById('table_body').innerHTML = document.getElementById('table_body').innerHTML + output.join('');
-	
+
 }
