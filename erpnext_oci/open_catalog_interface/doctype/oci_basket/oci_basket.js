@@ -18,6 +18,7 @@ frappe.ui.form.on('OCI Basket', {
 						frm.set_df_property("display","hidden",false);
 					} else {
 						console.log("fehler beim parsen");
+						frappe.show_alert( r.message );
 					}
 				}
 			});
@@ -27,7 +28,7 @@ frappe.ui.form.on('OCI Basket', {
 				method: 'erpnext_oci.open_catalog_interface.utils.create_items',
 				args: {"cdn": frm.doc},
 				callback: function(r) {
-					
+					frappe.show_alert( r.message );
 				}
 			});
 		});

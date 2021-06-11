@@ -50,19 +50,19 @@ def get_basket_data(cdn):
 	i = 0 
 	values = []
 	while True:
-		if (fields[0].returnfield + "[" + str(i+1) + "]") not in data:
+		if (fields[0].returnfield.replace("%",str(i+1))) not in data:
 			break
 		
 		details = {}
 		# add field infromations
 		for z in range(len(fields)):
 			details[fields[z].title] = ""
-			if (fields[z].returnfield + "[" + str(i+1) + "]" )in data:
-				details[fields[z].title] = data[fields[z].returnfield + "[" + str(i+1) + "]" ]
+			if (fields[z].returnfield.replace("%",str(i+1)))in data:
+				details[fields[z].title] = data[fields[z].returnfield.replace("%",str(i+1))]
 		# check item exist
 		exist = True;
-		if item_code != "" and ((item_code + "[" + str(i+1) + "]") in data):
-			exist = frappe.db.exists("Item",data[item_code + "[" + str(i+1) + "]"])
+		if item_code != "" and ((item_code.replace("%",str(i+1))) in data):
+			exist = frappe.db.exists("Item",data[item_code.replace("%",str(i+1))])
 		details["exist"] = exist
 
 		values.append(details)
@@ -78,7 +78,7 @@ def get_basket_data(cdn):
 def get_basket_items(basket):
 	oci_basket = frappe.get_doc("OCI Basket", basket)
 	partner = frappe.get_doc("OCI Partners",oci_basket.oci_partner)
-	
+
 	basket_quantity = "";
 	item_code = "";
 
@@ -92,16 +92,16 @@ def get_basket_items(basket):
 	result = [];
 	i = 0
 	while True:
-		if (item_code + "[" + str(i+1) + "]") not in data:
+		if (item_code.replace("%",str(i+1))) not in data:
 			break
 		
 		item_codename = "";
 		item_quantity = 1;
 		#parse data
-		if item_code != "" and ((item_code + "[" + str(i+1) + "]") in data):
-			item_codename = data[item_code + "[" + str(i+1) + "]"]
-		if basket_quantity != "" and ((basket_quantity + "[" + str(i+1) + "]") in data):
-			item_quantity = data[basket_quantity + "[" + str(i+1) + "]"]
+		if item_code != "" and ((item_code.replace("%",str(i+1))) in data):
+			item_codename = data[item_code.replace("%",str(i+1))]
+		if basket_quantity != "" and ((basket_quantity.replace("%",str(i+1))) in data):
+			item_quantity = data[basket_quantity.replace("%",str(i+1))]
 
 
 
@@ -137,32 +137,33 @@ def create_items(cdn):
 
 	i = 0 
 	while True:
-		if (itemfields[0].returnfield + "[" + str(i+1) + "]") not in data:
+		if (itemfields[0].returnfield.replace("%",str(i+1))) not in data:
 			break
 		
 		item_codename = "";
 		#parse data
 		exist = True;
-		if item_code != "" and ((item_code + "[" + str(i+1) + "]") in data):
-			item_codename = data[item_code + "[" + str(i+1) + "]"]
+		if item_code != "" and ((item_code.replace("%",str(i+1))) in data):
+			item_codename = data[item_code.replace("%",str(i+1))]
 			exist = frappe.db.exists("Item",item_codename)
 		
 		if exist:
+			i = i+1
 			continue
 
 		itemdata = {}
 		# add field infromations
 		for z in range(len(itemfields)):
 			itemdata[itemfields[z].fieldname] = itemfields[z].default
-			if (itemfields[z].returnfield + "[" + str(i+1) + "]" )in data:
-				itemdata[itemfields[z].fieldname] = data[itemfields[z].returnfield + "[" + str(i+1) + "]" ]
+			if (itemfields[z].returnfield.replace("%",str(i+1)))in data:
+				itemdata[itemfields[z].fieldname] = data[itemfields[z].returnfield.replace("%",str(i+1))]
 
 		# add uom infromations
 		uomdata = {}
 		for z in range(len(uomfields)):
 			uomdata[uomfields[z].fieldname] = itemfields[z].default
-			if (uomfields[z].returnfield + "[" + str(i+1) + "]" )in data:
-				uomdata[uomfields[z].fieldname] = data[uomfields[z].returnfield + "[" + str(i+1) + "]" ]
+			if (uomfields[z].returnfield.replace("%",str(i+1)))in data:
+				uomdata[uomfields[z].fieldname] = data[uomfields[z].returnfield.replace("%",str(i+1))]
 
 		# add price infromations
 		pricedata = [len(pricefields)]
@@ -171,24 +172,17 @@ def create_items(cdn):
 			pricedata[z]['field'] = [pricefields[z].fieldname]
 			if (pricefields[z].pricelist != None):
 				pricedata[z]['pricelist'] = pricefields[z].pricelist
-			if (pricefields[z].returnfield + "[" + str(i+1) + "]" )in data:
-				pricedata[z]['price'] = data[pricefields[z].returnfield + "[" + str(i+1) + "]" ]
+			if (pricefields[z].returnfield.replace("%",str(i+1)))in data:
+				pricedata[z]['price'] = data[pricefields[z].returnfield.replace("%",str(i+1))]
 
 
-		result.append(create_item(item_codename,itemdata,uomdata,pricedata,supplier,item_codename))
+		result.append(create_item(item_codename,itemdata,uomdata,pricedata,supplier,item_codename,partner.item_defaults))
 		i = i+1	
 
-	frappe.response["message"] = "Items added: <br/>" + "<br/>".join(result)
+	return "Items added: <br/>" + "<br/>".join(result)
 
-def create_item(item_codename,itemdata,uomdata,pricedata,supplier,supplier_part_no):
+def create_item(item_codename,itemdata,uomdata,pricedata,supplier,supplier_part_no,defaults):
     
-	defaults = frappe.defaults.get_defaults()
-	default_warehouse = ""
-	default_warehouse = frappe.db.get_value("Warehouse", filters={
-						"warehouse_name": _("Finished Goods"),
-						"company": defaults.get("company_name")
-						})
-
 	docdata = {}
 	docdata["doctype"] = "Item"
 	docdata["item_code"] = item_codename
@@ -200,10 +194,7 @@ def create_item(item_codename,itemdata,uomdata,pricedata,supplier,supplier_part_
 		docdata[key] = field
 	for key,field in uomdata.items():
 		docdata[key] = field
-	docdata["item_defaults"] = [{
-								"default_warehouse": default_warehouse,
-								"company": defaults.get("company_name")
-								}]
+	docdata["item_defaults"] = defaults
 	docdata["supplier_items"] = [{
 								"supplier" : supplier,
 								"supplier_part_no" : supplier_part_no
