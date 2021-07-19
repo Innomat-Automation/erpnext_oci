@@ -23,7 +23,7 @@ def create_hock_page():
                 "doctype": "OCI Basket",
 				"oci_partner" : data['~caller'],
 				"date" : date.today(),
-				"data" : json.dumps(json.loads(str(data).replace("'","\"")))
+				"data" : json.dumps(json.loads(str(data).replace("\"","").replace("'","\"")))
             })
 	basket.insert(ignore_permissions=True)
 	frappe.db.commit()
