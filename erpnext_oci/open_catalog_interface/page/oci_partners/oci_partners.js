@@ -49,7 +49,7 @@ function show_table(data) {
 	   	output.push('<td>' + data[i].Name + '</td>');
 		var passworddata = "";
 		var additional = "";
-		if(data[i].Password != null)
+		if(data[i].Password != null && data[i].Password != 'None')
 		{
 			passworddata = '<input type="hidden" name="Password" value="' + data[i].Password + '">';
 		}
