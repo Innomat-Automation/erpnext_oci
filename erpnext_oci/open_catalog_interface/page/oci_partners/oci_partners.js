@@ -48,10 +48,11 @@ function show_table(data) {
 		output.push('<tr>');
 	   	output.push('<td>' + data[i].Name + '</td>');
 		var passworddata = "";
+		var hookurl = "";
 		var additional = "";
 		if(data[i].Password != null && data[i].Password != 'None')
 		{
-			passworddata = '<input type="hidden" name="Password" value="' + data[i].Password + '">';
+			passworddata = '<input type="hidden" name="' + data[i].PassField + '" value="' + data[i].Password + '">';
 		}
 		if(data[i].AdditionalData != null)
 		{
@@ -62,7 +63,13 @@ function show_table(data) {
 				if(value.length = 2) additional = additional + '<input type="hidden" name="' + value[0] + '" value="' + value[1] + '">';
 			}
 		}
-	   	output.push('<td><form action="' + data[i].Url + '" method="' + data[i].Type + '" target="_blank">' + additional  + '<input type="hidden" name="USERNAME" value="' + data[i].Username + '">' + passworddata +'<input type="hidden" name="HOOK_URL" value="' + location.protocol + '//' + location.hostname + '/api/method/erpnext_oci.open_catalog_interface.utils.create_hock_page"><input type="hidden" name="~caller" value="' + data[i].Name + '"><input type="submit" value="Gehe zu Webshop"></form></td>');
+		if(data[i].Type == 'GET'){
+			hookurl = '<input type="hidden" name="HOOK_URL" value="' + location.protocol + '//' + location.hostname + '/api/method/erpnext_oci.open_catalog_interface.utils.create_hock_page?~caller=' + data[i].Name + '">'
+		}else{
+			hookurl = '<input type="hidden" name="HOOK_URL" value="' + location.protocol + '//' + location.hostname + '/api/method/erpnext_oci.open_catalog_interface.utils.create_hock_page"><input type="hidden" name="~caller" value="' + data[i].Name + '">'
+		}
+
+	   	output.push('<td><form action="' + data[i].Url + '" method="' + data[i].Type + '" target="_blank">' + additional  + '<input type="hidden" name="' + data[i].UserField + '" value="' + data[i].Username + '">' + passworddata + hookurl + '<input type="submit" value="Gehe zu Webshop"></form></td>');
 		output.push('</tr>');
 	}
   	

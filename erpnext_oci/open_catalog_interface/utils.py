@@ -12,7 +12,10 @@ from frappe import _
 @frappe.whitelist(allow_guest=True)
 def create_hock_page():
 	# Check has a message 
-	data = frappe.form_dict;
+	form_params  = frappe.form_dict;
+	query_params = frappe.request.args or {}
+
+	data = {**query_params, **form_params}
 
 	if(not ('~caller' in data.keys())):
 		frappe.local.response["type"] = "redirect"

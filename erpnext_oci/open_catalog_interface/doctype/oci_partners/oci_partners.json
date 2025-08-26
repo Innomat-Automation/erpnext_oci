@@ -8,7 +8,9 @@
  "field_order": [
   "conname",
   "supplier",
+  "userfield",
   "username",
+  "passfield",
   "password",
   "type",
   "url",
@@ -95,10 +97,23 @@
    "fieldtype": "Table",
    "label": "Item Defaults",
    "options": "Item Default"
+  },
+  {
+   "default": "USERNAME",
+   "fieldname": "userfield",
+   "fieldtype": "Data",
+   "label": "UserField",
+   "reqd": 1
+  },
+  {
+   "default": "Password",
+   "fieldname": "passfield",
+   "fieldtype": "Data",
+   "label": "PassField"
   }
  ],
- "modified": "2021-09-23 21:49:38.715272",
- "modified_by": "Administrator",
+ "modified": "2025-08-26 15:39:48.421255",
+ "modified_by": "m.mueller@innomat.ch",
  "module": "Open Catalog Interface",
  "name": "OCI Partners",
  "owner": "Administrator",
