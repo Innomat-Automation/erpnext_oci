@@ -96,6 +96,12 @@ doctype_js = {
 # Scheduled Tasks
 # ---------------
 
+scheduler_events = {
+    "monthly_long": [
+        "erpnext_oci.open_catalog_interface.price_update.schedule_monthly_price_checks"
+    ]
+}
+
 # scheduler_events = {
 # 	"all": [
 # 		"erpnext_oci.tasks.all"

@@ -4,6 +4,11 @@ frappe.pages['oci-partners'].on_page_load = function(wrapper) {
 		title: 'OCI Partners',
 		single_column: true
 	});
+	page.set_secondary_action(__('Price Query'), function() {
+		frappe.require('/assets/erpnext_oci/js/oci_validate.js', function() {
+			erpnext_oci.show_price_query();
+		});
+	}, 'octicon octicon-search');
 
         frappe.oci_partners.make(page);
         frappe.oci_partners.run();

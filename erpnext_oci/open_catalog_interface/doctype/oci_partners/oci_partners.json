@@ -16,6 +16,9 @@
   "url",
   "additionaldata",
   "validate",
+    "validate_quantity_field",
+  "auto_update_purchase_prices",
+  "price_check_quantity",
   "detail",
   "fields",
   "item_defaults"
@@ -59,6 +62,27 @@
    "fieldtype": "Check",
    "label": "Validate"
   },
+    {
+     "default": "QUANTITY",
+     "depends_on": "eval:doc.validate",
+     "fieldname": "validate_quantity_field",
+     "fieldtype": "Data",
+     "label": "Validate Quantity Field"
+    },
+    {
+     "default": "0",
+     "depends_on": "eval:doc.validate",
+     "fieldname": "auto_update_purchase_prices",
+     "fieldtype": "Check",
+     "label": "Monthly Purchase Price Update"
+    },
+    {
+     "default": "1",
+     "depends_on": "eval:doc.validate",
+     "fieldname": "price_check_quantity",
+     "fieldtype": "Int",
+     "label": "Price Check Quantity"
+    },
   {
    "default": "0",
    "fieldname": "detail",
@@ -112,7 +136,7 @@
    "label": "PassField"
   }
  ],
- "modified": "2025-08-26 15:39:48.421255",
+ "modified": "2026-11-12 23:08:13",
  "modified_by": "m.mueller@innomat.ch",
  "module": "Open Catalog Interface",
  "name": "OCI Partners",
